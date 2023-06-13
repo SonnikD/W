@@ -1,0 +1,213 @@
+  <!-- {%load static %} -->
+  <!DOCTYPE html>
+  <html lang="en">
+  
+    <head>
+      <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <!--  <link rel="stylesheet" href="{% static 'css/style.css' %}" /> --> 
+    <title>WINGMAN</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/css/light.css" id="theme-link">
+  </head>
+    <script type="text/javascript" src="../static/js/jquery-3.6.4.js"></script>
+  </head>
+  <body>
+  
+    <div class="area" >
+      <ul class="circles">
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+      </ul>
+  </div >
+    
+  <div class="sidebar">
+  
+  
+  
+    
+    <div class="sidebar_logo">
+      <a href="#"><img src="../static/images/logo.png" alt="Логотип"></a> <!--ссылка на home page -->
+    </div>
+  
+    <button class="button_slide slide_left">☰<i class="fa-solid fa-bars"></i></button>
+  
+    <div class="sidebar_header">
+      <i class="fa-solid fa-dragon fa-2x"></i>
+    </div>
+  
+  
+  
+    <div class="sidebar_menu">
+  
+  
+      
+      <h3>Новости</h3>
+  
+      <ul class="container" style="list-style-type: none">
+        <li class="menu">
+          <a href="#" class="sidebar_item">
+            <div class="sidebar_icon">
+              <i class="fa-solid fa-house"></i>
+            </div>
+            <h4 class="sidebar_title">Раздел 1</h4>
+          </a>
+          <ul class="dropdown hidden"   style="list-style-type: none" > 
+            <li><a class="sidebar_item" href="4">Пункт1</a></li> <!--ссылка на пункты обсуждений-->
+            <li><a class="sidebar_item" href="5">Пункт2</a></li>
+            <li><a class="sidebar_item" href="6">Пункт3</a></li>
+            <li><a class="sidebar_item" href="7">Пункт4</a></li>
+          </ul>
+        </li>
+  
+        <li class="menu">
+          <a href="#" class="sidebar_item">
+            <div class="sidebar_icon">
+              <i class="fa-brands fa-steam"></i>
+            </div>
+            <h4 class="sidebar_title">Раздел 2</h4>
+          </a>
+          <ul class="dropdown hidden"  style="list-style-type: none"> 
+            <li><a class="sidebar_item" href="1">Пункт1</a></li> <!--ссылка на пункты обсуждений-->
+            <li><a class="sidebar_item" href="2">Пункт2</a></li>
+            <li><a class="sidebar_item" href="3">Пункт3</a></li>
+          </ul>
+        </li>
+  
+        <li>
+          <a href="11" class="sidebar_item"> <!--ссылка на раздел обсуждений-->
+            <div class="sidebar_icon">
+              <i class="fa-brands fa-playstation"></i>
+            </div>
+            <h4>Обсуждения</h4>
+          </a>
+        </li>
+        </a>
+      </ul>
+  
+    </div>
+  
+    <div class="theme-button" id="theme-button">
+        <label class="switch switch200">
+        <input type="checkbox">
+        <span class="slider slider200"></span>
+    </div>
+  
+  
+  </div>
+  
+  <main>
+    <section>
+      <header class="header">
+        <h4 class="headtitle">WINGMAN</h4>
+        <div class="header-buttons">
+         <p class="header-button"><a href="login">Вход</p></a>  <!--ссылка на форму входа-->
+         <p class="header-button"><a href="register">Регистрация</p></a>  <!--ссылка на форму регистрации-->
+        </div>
+      </header>
+  
+
+<!-- ТВОЙ КОД-->
+
+
+
+<!-- {% extends "base.html" %} -->
+<!-- {% block content %} -->
+
+
+<style>
+  main section{
+    height: auto;
+  }
+
+  section p{
+    padding-bottom: 0;
+  }
+</style>
+<div class="back">
+<div>
+  <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'discussion:discussion_list'%}">Вернуться к списку обсуждений</a>
+</div>
+<div>
+  <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'discussion:discussion_update' object.id %}">Обновить</a>
+  <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'discussion:discussion_delete' object.id %}">Удалить</a>
+</div>
+</div>
+        <article class="media content-section row">
+          <div class="media-body">
+            <div class="article-metadata">
+              <h2 class="article-title">Название обсуждения: {{ object.title }}</h2>
+
+             <!-- {% if object.author == user %} -->
+               
+            <!--   {% endif %} -->
+            </div>
+          <!--  <img src="{{object.image.url}}" class="imgpost">  -->
+          <img src="foto.jpg" class="imgpost">
+          <p class="article-content">Описание обсуждения: {{ object.caption }}</p>
+          <div class="authdat">
+          <strong><p class="auth">Автор обсуждения: {{ object.author }}</p></strong>
+         <strong class="text-muted">Дата создания: {{ object.date_posted|date:"F d, Y" }}</strong>
+        </div>
+            </p>
+            </div>
+        </article>
+
+<form method="POST">
+ <!--  {% csrf_token %} -->
+    {{comment_form.as_p}}
+</form>
+
+<div class="main-comment-section">
+  {{comments.count}} Comment{{comments|pluralize}}
+</div>
+
+<p class="kolvo">Количество комментариев:</p>
+<div class="sub">
+<div class="inpu">
+  <div class="row bg_1">
+    <div class="col-3">
+        <input class="effect-1" type="text" placeholder="Оставьте свой комментарий">
+          <span class="focus-border"></span>
+      </div>
+        </span>
+    </div>
+
+</div>
+<div id="outer1">
+  <div class="button_slide1 slide_left1">Отправить</div>
+ </div>
+</div>
+<p class="au">Автор комментария:</p>
+
+<!--  {% for comment in comments %} -->
+  <blockquote class="blockquote">
+    <p>{{ comment.content}}</p>
+    <footer class="blockquote-footer">
+      By <cite>{{comment.user|capfirst}}
+        </cite>
+    </footer>
+  </blockquote>
+<!--  {% endfor %} -->
+ <!-- {% endblock content %} -->
+
+
+
+     <!-- ТВОЙ КОД-->
+
+
+    </section>
+  </main>
+  
+  <script src="../static/js/script.js"></script>
+  </body>
+  </html>
+  
